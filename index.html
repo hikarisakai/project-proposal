@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Widget</title>
+
+    <link rel="stylesheet" href="./src/css/mainpage.css">
+    <link rel="stylesheet" href="./src/css/reset.css">
+
+    <script defer src="./src/js/main.js"></script>
+</head>
+
+<body>
+    <header> 
+        <h1> Table of Students </h1>
+        <h3> Add students one by one or upload csv file!</h3>
+    </header>
+    
+    <main>
+        <!-- Widget: User can add student to table -->
+        <div id="widget" class="form">
+            <label> First Name
+                <input id="fName"/>
+            </label>
+
+            <label> Last Name
+                <input id="lName"/>
+            </label>
+
+            <label> Email
+                <input id="email"/>
+            </label>
+
+            <label> Level
+                <select name="Level" id="level" >
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </label>
+
+            <button type="button" id="submitBtn" class="form-button">Add / Edit Student</button>
+        </div>
+
+        <!-- User can upload csv file to add multiple students -->
+        <div>
+            
+        </div>    
+    
+        <!-- Table of students -->
+        <div>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
