@@ -1,0 +1,23 @@
+body {
+    font-family: 'Montserrat';
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+main {
+    margin: auto;
+    max-width: 80%;
+}
+
+#widget {
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 30px;
+    max-width: 90%;
+}
+
