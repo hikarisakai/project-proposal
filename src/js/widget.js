@@ -9,6 +9,13 @@ let email = document.getElementById("email");
 let level = document.getElementById("level");
 let table = document.getElementById("table");
 
+// Set size for edit/trash icons
+var iconSize = '18px';
+
+// Editing: True if currently editing table, False otherwise
+let editing = false;
+let currRow = '';
+
 // Add event listeners
 button.addEventListener("click", addStudent);
 fName.addEventListener("click", newEntry);
@@ -35,7 +42,14 @@ function addStudent() {
     button.style.fontSize = "18px";
 
     // Update table
-    addRow();
+    // If editing row, only change selected row
+    if (editing == true) {
+        editTable();
+        editing = false;
+    // Otherwise add a new row
+    } else {
+        addRow();
+    }
 
     // Reset input value
     fName.value = "";
@@ -98,8 +112,9 @@ function addRow() {
     // Add edit icon to row
     var edit = document.createElement('img');
     edit.src = "./img/edit.png";
-    edit.style.width = '18px';
-    edit.style.height = '18px';
+    edit.style.width = iconSize;
+    edit.style.height = iconSize;
+    edit.style.padding = '0px 5px';
     edit.addEventListener("click", editEntry);
     cell5.appendChild(edit);
     cell5.style.textAlign = "center";
@@ -107,8 +122,9 @@ function addRow() {
     // Add trash icon to row
     var trash = document.createElement('img');
     trash.src = "./img/trash.png";
-    trash.style.width = '18px';
-    trash.style.height = '18px';
+    trash.style.width = iconSize;
+    trash.style.height = iconSize;
+    trash.style.padding = '0px 5px';
     trash.addEventListener("click", deleteEntry);
     cell5.appendChild(trash);
 }
@@ -127,8 +143,21 @@ function editEntry() {
     document.getElementById("lName").value = row.cells[1].textContent;
     document.getElementById("email").value = row.cells[2].textContent;
     document.getElementById("level").value = row.cells[3].textContent;
+    
+    // Color selected row
+    row.style.backgroundColor = '#f6f6f3';
+    editing = true;
+
     // Reset appearance of '+' button
     newEntry();
+}
+
+// Enter edited input into selected row
+function editTable() {
+    table.rows[row.rowIndex].cells[0].textContent = fName.value;
+    table.rows[row.rowIndex].cells[1].textContent = lName.value;
+    table.rows[row.rowIndex].cells[2].textContent = email.value;
+    table.rows[row.rowIndex].cells[3].textContent = level.value;
 }
 
 // Validate input
