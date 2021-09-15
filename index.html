@@ -7,41 +7,44 @@
 
     <link rel="stylesheet" href="./src/css/mainpage.css">
     <link rel="stylesheet" href="./src/css/reset.css">
-
-    <script defer src="./src/js/main.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+    <script defer src="./src/js/widget.js"></script>
 </head>
 
 <body>
     <header> 
-        <h1> Table of Students </h1>
-        <h3> Add students one by one or upload csv file!</h3>
+        <h1> TABLE OF STUDENTS </h1>
+        <h3> Add students one by one or upload a file!</h3>
     </header>
     
     <main>
         <!-- Widget: User can add student to table -->
+        <h2> ADD STUDENT </h2>
         <div id="widget" class="form">
-            <label> First Name
-                <input id="fName"/>
-            </label>
+            <div id="name"> 
+                <div> NAME </div>
+                <div>
+                    <input id="fName" placeholder="FIRST NAME"/>
+                    <input id="lName" placeholder="LAST NAME"/>
+                </div>
+            </div>
 
-            <label> Last Name
-                <input id="lName"/>
-            </label>
-
-            <label> Email
+            <div>
+                <div>EMAIL</div> 
                 <input id="email"/>
-            </label>
+            </div>
 
-            <label> Level
-                <select name="Level" id="level" >
-                    <option value="Freshman">Freshman</option>
-                    <option value="Sophomore">Sophomore</option>
-                    <option value="Junior">Junior</option>
-                    <option value="Senior">Senior</option>
+            <div> 
+                <div> LEVEL </div>
+                <select id="level">
+                    <option value="Freshman">FRESHMAN</option>
+                    <option value="Sophomore">SOPHOMORE</option>
+                    <option value="Junior">JUNIOR</option>
+                    <option value="Senior">SENIOR</option>
                 </select>
-            </label>
+            </div>
 
-            <button type="button" id="submitBtn" class="form-button">Add / Edit Student</button>
+            <button type="button" id="submitBtn" class="form-button">+</button>
         </div>
 
         <!-- User can upload csv file to add multiple students -->
@@ -50,9 +53,15 @@
         </div>    
     
         <!-- Table of students -->
-        <div>
-
-        </div>
+        <table id="table">
+            <tr>
+              <th>FIRST NAME</th>
+              <th>LAST NAME</th>
+              <th>EMAIL</th>
+              <th>LEVEL</th>
+              <th>EDIT</th>
+            </tr>
+          </table>
     </main>
 
 </body>
