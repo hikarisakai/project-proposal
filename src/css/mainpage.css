@@ -10,7 +10,7 @@ body {
 }
 
 header {
-    padding: 30px;
+    padding-top: 60px;
     max-width: 80%;
     margin: auto;
     padding-bottom: 40px;
@@ -143,4 +143,18 @@ th, td {
 .sophomore {
     background-color: bisque;
     width: 85px;
+}
+
+.junior {
+    background-color: rgb(221, 195, 230);
+    width: 45px;
+}
+
+.senior {
+    background-color:rgb(204, 228, 248);
+    width: 50px;
+}
+
+#editBtns {
+    max-width: 50px;
 }
