@@ -1,3 +1,5 @@
+// Edit icon image credit: https://commons.wikimedia.org/wiki/File:Edit_icon_(the_Noun_Project_30184).svg
+// Trash icon image credit: https://www.iconfinder.com/icons/115789/trash_icon
 // option to clear all data entries?
 
 let button = document.getElementById("submitBtn");
@@ -16,23 +18,11 @@ level.addEventListener("click", newEntry);
 
 // Click "+" button: add new student and change button appearance
 function addStudent() {
+    
     // Validate input
-    // If empty, outline input box in red
-    let error = false;
-    if (fName.value == "") {
-        fName.classList.add("error");
-        error = true;
-    }
-    if (lName.value == "") {
-        lName.classList.add("error");
-        error = true;
-    }
-    if (email.value == "") {
-        email.classList.add("error");
-        error = true;
-    }
-    if (error == true) {
-        window.alert("Please fill missing field(s).")
+    // Alert for any error
+    if (validateInput() == true) {
+        window.alert("Please fix red field(s).")
         return;
     }
 
@@ -81,31 +71,91 @@ function addRow() {
     grade.textContent = level.value;
     cell4.appendChild(grade);
 
-    // Add color to levels in table
+    // Add color to level
     grade.classList.add("grade");
     console.log(level.value);
     switch(level.value) {
         case 'Freshman':
+            // Color: Green
             grade.classList.add("freshman");
             break;
         case 'Sophomore':
+            // Color: Orange
             grade.classList.add("sophomore");
             break;
         case "Junior":
+            // Color: Purple
             grade.classList.add("junior");
             break;
+            // Color: Blue
         case "Senior":
             grade.classList.add("senior");
             break;
         default:
             break;
     }
-    
-
-    // Add edit icon
+ 
+    // Add edit icon to row
     var edit = document.createElement('img');
     edit.src = "./img/edit.png";
-    edit.style.width = '15px';
-    edit.style.height = '15px';
+    edit.style.width = '18px';
+    edit.style.height = '18px';
+    edit.addEventListener("click", editEntry);
     cell5.appendChild(edit);
+    cell5.style.textAlign = "center";
+
+    // Add trash icon to row
+    var trash = document.createElement('img');
+    trash.src = "./img/trash.png";
+    trash.style.width = '18px';
+    trash.style.height = '18px';
+    trash.addEventListener("click", deleteEntry);
+    cell5.appendChild(trash);
+}
+
+// Delete row if trash icon is clicked
+function deleteEntry() {
+    var index = this.parentNode.parentNode.rowIndex;
+    table.deleteRow(index);
+}
+
+// Edit button clicked
+// Fill form with values from the row being edited
+function editEntry() {
+    row = this.parentNode.parentNode;
+    document.getElementById("fName").value = row.cells[0].textContent;
+    document.getElementById("lName").value = row.cells[1].textContent;
+    document.getElementById("email").value = row.cells[2].textContent;
+    document.getElementById("level").value = row.cells[3].textContent;
+    // Reset appearance of '+' button
+    newEntry();
+}
+
+// Validate input
+// Checks if fields are missing or invalid format
+// Error: outline input field(s) in red
+function validateInput() {
+    var error = true;
+    // Check if any of the fields are empty
+    if (fName.value == "") {
+        fName.classList.add("error");
+    }
+    if (lName.value == "") {
+        lName.classList.add("error");
+    }
+    // Also check if email is in valid format
+    if (email.value == "" || checkEmail() == false) {
+        email.classList.add("error");
+    }
+    else {
+        error = false;
+    }
+    return error;
+}
+
+// Validate email format 
+// Check if email is in format string@string.string
+function checkEmail() {
+    var format = /\S+@\S+\.\S+/;
+    return format.test(email.value);
 }
