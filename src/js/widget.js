@@ -1,6 +1,9 @@
 // Edit icon image credit: https://commons.wikimedia.org/wiki/File:Edit_icon_(the_Noun_Project_30184).svg
 // Trash icon image credit: https://www.iconfinder.com/icons/115789/trash_icon
 
+// Need to stop highlighting rows that are not being edited
+// upload file option
+
 // Set variables
 let button = document.getElementById("submitBtn");
 let fName = document.getElementById("fName");
@@ -9,6 +12,7 @@ let email = document.getElementById("email");
 let level = document.getElementById("level");
 let table = document.getElementById("table");
 let clear = document.getElementById("clear");
+let sort = document.getElementById("sort");
 
 // Set size for edit/trash icons
 var iconSize = '18px';
@@ -57,6 +61,10 @@ function addStudent() {
     fName.value = "";
     lName.value = "";
     email.value = "";
+
+    // Reset select input to default 
+    sort.selectedIndex = 0;
+    level.selectedIndex = 0;
 }
 
 // New entry: resets button appearance
@@ -207,10 +215,22 @@ function checkLastName() {
 
 // Validate email format 
 // Check if email is in format string@string.string
+// Check for duplicates
 function checkEmail() {
     var format = /\S+@\S+\.\S+/;
     correctFormat = format.test(email.value);
-    if (email.value != "" && correctFormat) {
+    noDuplicate = true;
+    var rows = table.rows;
+
+    // If email is already in table, show error
+    for (ind = 1; ind < rows.length; ind++) {
+        if (rows[ind].getElementsByTagName("TD")[2].textContent == email.value) {
+            noDuplicate = false;
+            window.alert("Duplicate entry: Already added student with that email");
+        }
+    }
+
+    if (email.value != "" && correctFormat && noDuplicate) {
         email.classList.remove("error");
         return true;
     } 
@@ -250,8 +270,8 @@ function sortTableByCol(col) {
         
             // Compare current row's content with next row's content
             // If the current cell is greater than the next, we will need to swap the rows
-            var curr = rows[i].getElementsByTagName("TD")[col];
-            var next = rows[i + 1].getElementsByTagName("TD")[col];
+            var curr = rows[ind].getElementsByTagName("TD")[col];
+            var next = rows[ind + 1].getElementsByTagName("TD")[col];
             if (curr.textContent.toLowerCase() > next.textContent.toLowerCase()) {
                 swap = true;
                 break;
