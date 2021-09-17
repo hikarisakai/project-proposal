@@ -1,9 +1,6 @@
 // Edit icon image credit: https://commons.wikimedia.org/wiki/File:Edit_icon_(the_Noun_Project_30184).svg
 // Trash icon image credit: https://www.iconfinder.com/icons/115789/trash_icon
 
-// Need to stop highlighting rows that are not being edited
-// upload file option
-
 // Set variables
 let button = document.getElementById("submitBtn");
 let fName = document.getElementById("fName");
@@ -13,13 +10,14 @@ let level = document.getElementById("level");
 let table = document.getElementById("table");
 let clear = document.getElementById("clear");
 let sort = document.getElementById("sort");
+let inputFile = document.getElementById("file");
 
 // Set size for edit/trash icons
 var iconSize = '18px';
 
 // Editing: True if currently editing table, False otherwise
 let editing = false;
-let currRow = '';
+let currRow = null;
 
 // Add event listeners
 button.addEventListener("click", addStudent);
@@ -28,6 +26,7 @@ lName.addEventListener("click", newEntry);
 email.addEventListener("click", newEntry);
 level.addEventListener("click", newEntry);
 clear.addEventListener("click", deleteTable);
+inputFile.addEventListener("change", readFile);
 
 // Click "+" button: add new student and change button appearance
 function addStudent() {
@@ -112,6 +111,7 @@ function addRow() {
     cell5.appendChild(trash);
 }
 
+// Add Level input to row 
 function addLevel(cell) {
     var grade = document.createElement("p");
     grade.textContent = level.value;
@@ -157,7 +157,12 @@ function editEntry() {
     document.getElementById("level").value = row.cells[3].textContent;
     
     // Color selected row
+    if (currRow != row && currRow != null) {
+        currRow.style.backgroundColor = "white";
+    }
     row.style.backgroundColor = '#f6f6f3';
+
+    currRow = row;
     editing = true;
 
     // Reset appearance of '+' button
@@ -214,27 +219,33 @@ function checkLastName() {
 }
 
 // Validate email format 
-// Check if email is in format string@string.string
-// Check for duplicates
 function checkEmail() {
+    // Check if email is in format string@string.string
     var format = /\S+@\S+\.\S+/;
     correctFormat = format.test(email.value);
+    if (!correctFormat) {
+        window.alert("Invalid email format");
+    }
+    
     noDuplicate = true;
     var rows = table.rows;
 
     // If email is already in table, show error
     for (ind = 1; ind < rows.length; ind++) {
-        if (rows[ind].getElementsByTagName("TD")[2].textContent == email.value) {
+        if (rows[ind].getElementsByTagName("TD")[2].textContent == email.value && !editing) {
             noDuplicate = false;
             window.alert("Duplicate entry: Already added student with that email");
         }
     }
 
+    // Check if email input is empty, in correct format, and is not a duplicate
     if (email.value != "" && correctFormat && noDuplicate) {
+        // Get rid of red outline if there is no error
         email.classList.remove("error");
         return true;
     } 
     else {
+        // Outline email input box in red
         email.classList.add("error");
         return false;
     }
@@ -245,6 +256,29 @@ function deleteTable() {
     for(var i = table.rows.length - 1; i > 0; i--) {
         table.deleteRow(i);
     }
+}
+
+// Read input file line by line
+function readFile() {
+    var file = inputFile.files[0];
+    var reader = new FileReader();
+
+    // Add each line into array
+    reader.onload = function(progressEvent){    
+        var lines = this.result.split(/\r\n|\n/);
+        for (ind = 0; ind < lines.length; ind++){
+            // Split the values at commas
+            var info = lines[ind].split(",");
+
+            // Add entry with values from file
+            fName.value = info[0].replace(/\s+/g, '');
+            lName.value = info[1].replace(/\s+/g, '');
+            email.value = info[2].replace(/\s+/g, '');
+            level.value = info[3].replace(/\s+/g, '');
+            addRow(); 
+        }
+    }
+    reader.readAsText(file);
 }
 
 // User chooses which header to sort the table by
