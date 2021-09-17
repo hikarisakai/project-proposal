@@ -270,12 +270,6 @@ function readFile() {
             // Split the values at commas
             var info = lines[ind].split(",");
 
-            // Check to see if any of the lines are missing information
-            if (info.length < 4) {
-                window.alert("Invalid file: missing information");
-                break;
-            }
-
             // Add entry with values from file
             fName.value = info[0].replace(/\s+/g, '');
             lName.value = info[1].replace(/\s+/g, '');
