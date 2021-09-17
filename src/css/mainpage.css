@@ -11,7 +11,7 @@ body {
 
 header {
     padding-top: 60px;
-    max-width: 80%;
+    max-width: 90%;
     margin: auto;
     padding-bottom: 40px;
 }
@@ -44,7 +44,6 @@ main {
     flex-wrap: wrap;
     margin: auto;
     padding: 30px 60px;
-    max-width: 90%;
     border-radius: 25px;
     align-items: center;
     position: relative;
@@ -62,7 +61,7 @@ main {
 #email {
     min-width: 250px;
     max-width: 250px;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 #fName {
@@ -72,7 +71,7 @@ main {
 
 #lName {
     width: 130px;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 input {
@@ -100,7 +99,7 @@ select {
     line-height: 20px;
     font-size: 20px;
     position: absolute;
-    right: 30px;
+    right: 40px;
     top: 45px;
     transition-duration: 0.4s;
 }
@@ -204,4 +203,16 @@ th, td {
     margin-top: 30px;
 }
 
+#descr {
+    margin-bottom: 10px;
+}
 
+/* Reformat "+" button and place space between wrapped items*/
+@media (max-width: 1098px) {
+    #levelTitle {
+        margin-top: 10px;
+    }
+    #submitBtn {
+        right: 60px;
+    }
+}
