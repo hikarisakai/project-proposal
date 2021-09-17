@@ -35,7 +35,7 @@
             </div>
 
             <div> 
-                <div> LEVEL </div>
+                <div id="levelTitle"> LEVEL </div>
                 <select id="level">
                     <option value="Freshman">FRESHMAN</option>
                     <option value="Sophomore">SOPHOMORE</option>
@@ -47,13 +47,16 @@
             <button type="button" id="submitBtn" class="form-button">+</button>
         </div>
 
-        <!-- User can upload csv file to add multiple students -->
+        <!-- User can upload txt file to add multiple students -->
         <div class="space"> 
-            <h2> OR UPLOAD A CSV FILE</h2>
+            <h2> OR UPLOAD A TXT FILE</h2>
         </div>
         
         <div id="fileUpload">
-            <input type="file" id="file" name="file">
+            <div id="descr"> 
+                <p> Format: each line is a new student, info is separated by commas (firstname, lastname, email, level)</p> 
+            </div>
+            <input type="file" id="file" name="file" accept=".txt">
         </div>    
     
         <!-- Option for table: Sort, Search, Clear -->
