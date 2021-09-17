@@ -81,13 +81,35 @@ function addRow() {
     cell2.textContent = lName.value;
     cell3.textContent = email.value;
 
+    addLevel(cell4);
+ 
+    // Add edit icon to row
+    var edit = document.createElement('img');
+    edit.src = "./img/edit.png";
+    edit.style.width = iconSize;
+    edit.style.height = iconSize;
+    edit.style.padding = '0px 5px';
+    edit.addEventListener("click", editEntry);
+    cell5.appendChild(edit);
+    cell5.style.textAlign = "center";
+
+    // Add trash icon to row
+    var trash = document.createElement('img');
+    trash.src = "./img/trash.png";
+    trash.style.width = iconSize;
+    trash.style.height = iconSize;
+    trash.style.padding = '0px 5px';
+    trash.addEventListener("click", deleteEntry);
+    cell5.appendChild(trash);
+}
+
+function addLevel(cell) {
     var grade = document.createElement("p");
     grade.textContent = level.value;
-    cell4.appendChild(grade);
+    cell.appendChild(grade);
 
     // Add color to level
     grade.classList.add("grade");
-    console.log(level.value);
     switch(level.value) {
         case 'Freshman':
             // Color: Green
@@ -108,25 +130,6 @@ function addRow() {
         default:
             break;
     }
- 
-    // Add edit icon to row
-    var edit = document.createElement('img');
-    edit.src = "./img/edit.png";
-    edit.style.width = iconSize;
-    edit.style.height = iconSize;
-    edit.style.padding = '0px 5px';
-    edit.addEventListener("click", editEntry);
-    cell5.appendChild(edit);
-    cell5.style.textAlign = "center";
-
-    // Add trash icon to row
-    var trash = document.createElement('img');
-    trash.src = "./img/trash.png";
-    trash.style.width = iconSize;
-    trash.style.height = iconSize;
-    trash.style.padding = '0px 5px';
-    trash.addEventListener("click", deleteEntry);
-    cell5.appendChild(trash);
 }
 
 // Delete row if trash icon is clicked
@@ -157,7 +160,8 @@ function editTable() {
     table.rows[row.rowIndex].cells[0].textContent = fName.value;
     table.rows[row.rowIndex].cells[1].textContent = lName.value;
     table.rows[row.rowIndex].cells[2].textContent = email.value;
-    table.rows[row.rowIndex].cells[3].textContent = level.value;
+    table.rows[row.rowIndex].cells[3].textContent = "";
+    addLevel(table.rows[row.rowIndex].cells[3]);
 }
 
 // Validate input
@@ -165,26 +169,51 @@ function editTable() {
 // Error: outline input field(s) in red
 function validateInput() {
     var error = true;
-    // Check if any of the fields are empty
-    if (fName.value == "") {
-        fName.classList.add("error");
-    }
-    if (lName.value == "") {
-        lName.classList.add("error");
-    }
-    // Also check if email is in valid format
-    if (email.value == "" || checkEmail() == false) {
-        email.classList.add("error");
-    }
-    else {
+    
+    var validFirst = checkFirstName();
+    var validLast = checkLastName();
+    var validEmail = checkEmail(); 
+
+    if (validFirst && validLast && validEmail) {
         error = false;
     }
+    
     return error;
+}
+
+// Check if first name input is empty
+function checkFirstName() {
+    if (fName.value == "") {
+        fName.classList.add("error");
+        return false;
+    } else {
+        fName.classList.remove("error");
+        return true;
+    }
+}
+
+// Check if last name input is empty
+function checkLastName() {
+    if (lName.value == "") {
+        lName.classList.add("error");
+        return false;
+    } else {
+        lName.classList.remove("error");
+        return true;
+    }
 }
 
 // Validate email format 
 // Check if email is in format string@string.string
 function checkEmail() {
     var format = /\S+@\S+\.\S+/;
-    return format.test(email.value);
+    correctFormat = format.test(email.value);
+    if (email.value != "" && correctFormat) {
+        email.classList.remove("error");
+        return true;
+    } 
+    else {
+        email.classList.add("error");
+        return false;
+    }
 }
