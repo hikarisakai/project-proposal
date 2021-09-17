@@ -14,6 +14,7 @@
 <body>
     <header> 
         <h1> TABLE OF STUDENTS </h1>
+        <h3> Add students one by one or upload a file.</h3>
     </header>
     
     <main>
@@ -48,11 +49,11 @@
 
         <!-- User can upload csv file to add multiple students -->
         <div class="space"> 
-            <h2> OR UPLOAD A FILE</h2>
+            <h2> OR UPLOAD A CSV FILE</h2>
         </div>
         
-        <div id="file">
-            
+        <div id="fileUpload">
+            <input type="file" id="file" name="file">
         </div>    
     
         <!-- Option for table: Sort, Search, Clear -->
@@ -64,7 +65,6 @@
                 <option value="email">Email</option>
                 <option value="level">Level</option>
             </select>
-            <div id="search"> Search </div>
             <button type="button" id="clear">Clear</span>
         </div>
 
