@@ -1,0 +1,5 @@
+First, Last, first@last.edu, Senior
+Temp, Temporary, temp@ucdavis.edu, Freshman
+Fake, Name, fake@uni.com, Sophomore
+Text, File, text@file.com, Junior
+Joe, Doe, john@smith.com, Freshman
