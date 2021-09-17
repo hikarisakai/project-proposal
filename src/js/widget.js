@@ -1,13 +1,14 @@
 // Edit icon image credit: https://commons.wikimedia.org/wiki/File:Edit_icon_(the_Noun_Project_30184).svg
 // Trash icon image credit: https://www.iconfinder.com/icons/115789/trash_icon
-// option to clear all data entries?
 
+// Set variables
 let button = document.getElementById("submitBtn");
 let fName = document.getElementById("fName");
 let lName = document.getElementById("lName");
 let email = document.getElementById("email");
 let level = document.getElementById("level");
 let table = document.getElementById("table");
+let clear = document.getElementById("clear");
 
 // Set size for edit/trash icons
 var iconSize = '18px';
@@ -22,6 +23,7 @@ fName.addEventListener("click", newEntry);
 lName.addEventListener("click", newEntry);
 email.addEventListener("click", newEntry);
 level.addEventListener("click", newEntry);
+clear.addEventListener("click", deleteTable);
 
 // Click "+" button: add new student and change button appearance
 function addStudent() {
@@ -39,7 +41,7 @@ function addStudent() {
     // Change "+"" to check mark
     button.textContent =  "\u2713";
     button.style.fontWeight = "normal";
-    button.style.fontSize = "18px";
+    button.style.fontSize = iconSize;
 
     // Update table
     // If editing row, only change selected row
@@ -80,7 +82,6 @@ function addRow() {
     cell1.textContent = fName.value;
     cell2.textContent = lName.value;
     cell3.textContent = email.value;
-
     addLevel(cell4);
  
     // Add edit icon to row
@@ -162,6 +163,7 @@ function editTable() {
     table.rows[row.rowIndex].cells[2].textContent = email.value;
     table.rows[row.rowIndex].cells[3].textContent = "";
     addLevel(table.rows[row.rowIndex].cells[3]);
+    row.style.backgroundColor = "white";
 }
 
 // Validate input
@@ -177,7 +179,7 @@ function validateInput() {
     if (validFirst && validLast && validEmail) {
         error = false;
     }
-    
+
     return error;
 }
 
@@ -215,5 +217,50 @@ function checkEmail() {
     else {
         email.classList.add("error");
         return false;
+    }
+}
+
+// Delete all entries in the table
+function deleteTable() {
+    for(var i = table.rows.length - 1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+}
+
+// User chooses which header to sort the table by
+function sortOption() {
+    var selected = document.getElementById("sort").value;
+    var labels = ["firstName", "lastName", "email", "level"];
+    sortTableByCol(labels.indexOf(selected));
+}
+
+// Sort Table
+// col: selected column to sort
+function sortTableByCol(col) {
+    var swap;
+    var rows = table.rows;
+    var sorting = true;
+
+    // Keep sorting column while 'sorting' is true
+    while (sorting) {
+        sorting = false;
+        // Loop through rows 
+        for (ind = 1; ind < (rows.length - 1); ind++) {
+            swap = false;
+        
+            // Compare current row's content with next row's content
+            // If the current cell is greater than the next, we will need to swap the rows
+            var curr = rows[i].getElementsByTagName("TD")[col];
+            var next = rows[i + 1].getElementsByTagName("TD")[col];
+            if (curr.textContent.toLowerCase() > next.textContent.toLowerCase()) {
+                swap = true;
+                break;
+            }
+        } 
+        // Swap rows
+        if (swap) {
+            rows[ind].parentNode.insertBefore(rows[ind + 1], rows[ind]);
+            sorting = true;
+        }
     }
 }
