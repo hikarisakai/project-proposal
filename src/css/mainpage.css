@@ -36,6 +36,7 @@ main {
     max-width: 80%;
 }
 
+/* Widget to add student interactively */
 #widget {
     background-color: #f4eee5;
     display: flex;
@@ -116,7 +117,6 @@ select {
 
 /* Table of students*/
 table {
-    margin-top: 50px;
     width: 100%;
     border-collapse: collapse;
 }
@@ -135,6 +135,7 @@ th, td {
     padding: 5px;
 }
 
+/* Set colors for levels */
 .freshman {
     background-color: #bcdbc6;
     width: 75px;
@@ -159,3 +160,48 @@ th, td {
     max-width: 65px;
     text-align: center;
 }
+
+#options {
+    margin-bottom: 10px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Clear button */
+#clear {
+    padding: 5px;
+    margin-left: 20px;
+    background-color: #f4eee5;
+}
+
+#clear:hover {
+    background-color: #f7e5cb;
+}
+
+#sort {
+    background-color:#f4eee5;
+}
+
+#sort:hover {
+    background-color: #f7e5cb;
+}
+
+/* Section to upload file */
+#fileUpload {
+    background-color: #f6f6f3;
+    margin: auto;
+    padding: 30px 60px;
+    max-width: 90%;
+    border-radius: 25px;
+    align-items: center;
+    position: relative;
+}
+
+/* Add class for extra space between sections*/
+.space {
+    margin-top: 30px;
+}
+
+
