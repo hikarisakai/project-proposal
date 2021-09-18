@@ -143,8 +143,12 @@ function addLevel(cell) {
 
 // Delete row if trash icon is clicked
 function deleteEntry() {
-    var index = this.parentNode.parentNode.rowIndex;
+    var selected = this.parentNode.parentNode;
+    var index = selected.rowIndex;
     table.deleteRow(index);
+    if (currRow == selected) {
+        editing = false;
+    }
 }
 
 // Edit button clicked
@@ -256,6 +260,7 @@ function deleteTable() {
     for(var i = table.rows.length - 1; i > 0; i--) {
         table.deleteRow(i);
     }
+    editing = false;
 }
 
 // Read input file line by line
